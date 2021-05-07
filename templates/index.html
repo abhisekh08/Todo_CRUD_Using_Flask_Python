@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container my-1">
+    <form action = "/" method = "POST">
+        <div>
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" name="title">
+        </div>
+        <div>
+            <label for="desc" class="form-label">Description</label>
+            <input type="text" class="form-control" name="desc">
+            </br>
+        </div>
+        <button type="submit" class="btn btn-dark btn-sm">Add todo</button>
+      </form>
+</div>
+</br>
+
+{% if (todolist|length == 0) %}
+<div class="container">
+  <div class="alert alert-info" role="alert">
+    No Todo Found!! Plz add some.
+  </div>
+</div>
+
+  
+{% else %}
+<div class="container mb-1">
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Slno.</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Time</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todolist  %}
+        <tr>
+          <th scope="row mb-1">{{loop.index}}</th>
+          <td>{{todo.title}}</td>
+          <td>{{todo.desc}}</td>
+          <td>{{todo.date_created}}</td>
+          <td>
+          <a href="/update/{{todo.slno}}"><button type="button" class="btn btn-outline-dark mb-1">Update</button></a> 
+          <a href="/delete/{{todo.slno}}"><button type="button" class="btn btn-outline-dark mb-1">Done</button></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+  
+{% endif %}
+
+{% endblock body %}
